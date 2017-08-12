@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -60,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                releaseMediaPlayer();
-                m = new MediaPlayer();
-                manager.requestAudioFocus(mOnAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
-                PaomoAsyncTask task = new PaomoAsyncTask();
-                task.execute(SONG_URL);
+                if (m != null) {
+                    releaseMediaPlayer();
+                }
+                    m = new MediaPlayer();
+                    manager.requestAudioFocus(mOnAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                    PaomoAsyncTask task = new PaomoAsyncTask();
+                    task.execute(SONG_URL);
             }
         });
     }
